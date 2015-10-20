@@ -20,7 +20,7 @@ class GetWeChatGif:
             fullPath = dirName + '/' + afile;
             if(os.path.isdir(fullPath)):
                 self._makeDestDir(fullPath)
-                self._go(fullPath)
+                self._go(fullPath )
             else:
                 key = self._getFileNamePrefix(afile)
                 if(fileMap.has_key(key) != True):
@@ -28,7 +28,7 @@ class GetWeChatGif:
                 fileMap[key].append(afile)
         for key in fileMap.keys():
             destFileName = dirName + '/' + fileMap[key][0];
-            destFileName.replace(self._sourcePath, self._destPath)
+            destFileName = destFileName.replace(self._sourcePath, self._destPath)
             fileListSize = len(fileMap[key])
             if(fileListSize == 1):
                 destFileName += '.jpg'
@@ -36,12 +36,12 @@ class GetWeChatGif:
                 destFileName += '.gif'
             else:
                 continue
-            print dirName +'----'+ destFileName
             shutil.copyfile(dirName + '/' + key, destFileName)
             self._count += 1
     def _makeDestDir(self, sourceFullPath):
         halfPath = sourceFullPath[len(self._sourcePath):]
         fullPath = self._destPath + halfPath
+        os.mkdir(fullPath)
     def _getFileNamePrefix(self, fileName):
         ret = re.match('[0-9,a-f]+', fileName);
         return ret.group()
