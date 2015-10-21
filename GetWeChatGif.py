@@ -36,7 +36,8 @@ class GetWeChatGif:
                 destFileName += '.gif'
             else:
                 continue
-            shutil.copyfile(dirName + '/' + key, destFileName)
+            if(os.path.exists(dirName + '/' + key)):
+                shutil.copyfile(dirName + '/' + key, destFileName)
             self._count += 1
     def _makeDestDir(self, sourceFullPath):
         halfPath = sourceFullPath[len(self._sourcePath):]
